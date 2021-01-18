@@ -157,63 +157,64 @@ common_val_cfg = dict(
     square_bbox=square_bbox
 )
 
-# h36m_dataset_type = 'H36MDataset'
-# h36m_data_root = 'data/h36m/'
-# coco_dataset_type = 'COCOKeypoints'
-# coco_data_root = 'data/coco/'
-
-dataset_type = 'CommonDataset'
-dataset_root = 'data/rcnn-pretrain/'
+h36m_dataset_type = 'H36MDataset'
+h36m_data_root = 'data/h36m/'
+coco_dataset_type = 'COCOKeypoints'
+coco_data_root = 'data/coco/'
+common_dataset = 'CommonDataset'
+lspet_root = 'data/lspet/'
+mpii_root = 'data/mpii/'
+mpi_inf_3dhp_root = 'data/mpi_inf_3dhp/'
 
 datasets = [
     dict(
         train=dict(
-            type=dataset_type,
-            ann_file=dataset_root + 'h36m/' + 'train.pkl',
-            img_prefix=dataset_root + 'h36m/' + 'images/',
+            type=common_dataset,
+            ann_file=h36m_data_root + 'extras/rcnn/h36m_train.pkl',
+            img_prefix=h36m_data_root,
             sample_weight=0.6,
             **common_train_cfg
         ),
         val=dict(
-            type=dataset_type,
-            ann_file=dataset_root + 'h36m/' + 'val.pkl',
-            img_prefix=dataset_root + 'h36m/' + 'images/',
+            type=common_dataset,
+            ann_file=h36m_data_root + 'extras/rcnn/h36m_val.pkl',
+            img_prefix=h36m_data_root,
             sample_weight=0.6,
             **common_val_cfg
         ),
     ),
     dict(
         train=dict(
-            type=dataset_type,
-            ann_file=dataset_root + 'coco/' + 'train.pkl',
-            img_prefix=dataset_root + 'coco/' + 'images/',
+            type=common_dataset,
+            ann_file=coco_data_root + 'annotations/train_densepose_2014_scene.pkl',
+            img_prefix=coco_data_root + 'train2014/',
             sample_weight=0.3,
             **common_train_cfg
         ),
     ),
     dict(
         train=dict(
-            type=dataset_type,
-            ann_file=dataset_root + 'lsp/' + 'train.pkl',
-            img_prefix=dataset_root + 'lsp/' + 'images/',
+            type=common_dataset,
+            ann_file=lspet_root + 'rcnn/train.pkl',
+            img_prefix=lspet_root + 'images/',
             sample_weight=0.3,
             **common_train_cfg
         ),
     ),
     dict(
         train=dict(
-            type=dataset_type,
-            ann_file=dataset_root + 'mpii/' + 'train.pkl',
-            img_prefix=dataset_root + 'mpii/' + 'images/',
+            type=common_dataset,
+            ann_file=mpii_root + 'rcnn/train.pkl',
+            img_prefix=mpii_root + 'images/',
             sample_weight=0.3,
             **common_train_cfg
         ),
     ),
     dict(
         train=dict(
-            type=dataset_type,
-            ann_file=dataset_root + 'mpi_inf_3dhp/' + 'train.pkl',
-            img_prefix=dataset_root + 'mpi_inf_3dhp/' + 'images/',
+            type=common_dataset,
+            ann_file=mpi_inf_3dhp_root + 'rcnn/train.pkl',
+            img_prefix=mpi_inf_3dhp_root,
             sample_weight=0.1,
             **common_train_cfg
         ),

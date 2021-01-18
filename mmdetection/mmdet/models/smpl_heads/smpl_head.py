@@ -74,20 +74,20 @@ class SMPLHead(nn.Module):
         self.loss = build_loss(loss_cfg)
 
     def forward(self, x):
-        batch_size = x.shape[0]
+        batch_size = x.shape[0]  # m*256*14*14
 
         init_pose = self.init_contrep.view(1, -1).expand(batch_size, -1)
         init_shape = self.init_shape.view(1, -1).expand(batch_size, -1)
         init_cam = self.init_cam.view(1, -1).expand(batch_size, -1)
 
         for conv in self.convs:
-            x = self.relu(conv(x))
+            x = self.relu(conv(x))  # m*256*7*7
 
         xf = self.avgpool(x)
-        xf = xf.view(xf.size(0), -1)
+        xf = xf.view(xf.size(0), -1)  # m*256
 
-        x0 = torch.cat([init_pose, init_shape, init_cam], 1)
-        xf1 = torch.cat([xf, x0], 1)
+        x0 = torch.cat([init_pose, init_shape, init_cam], 1)  # m*157(144+10+3)
+        xf1 = torch.cat([xf, x0], 1)  # m*413
         xf1 = self.fc1(xf1)
         xf1 = self.relu(xf1)
         xf1 = self.drop1(xf1)

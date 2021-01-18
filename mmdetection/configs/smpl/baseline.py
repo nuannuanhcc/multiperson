@@ -146,7 +146,7 @@ common_train_cfg = dict(
     with_trans=True,
     # max_samples=1024
     square_bbox=square_bbox,
-    mosh_path='data/h36m/extras/h36m_single_train_openpose.npz',
+    mosh_path='data/h36m/extras/mosh_annot.npz',
     with_nr=WITH_NR,
     use_poly=True,
     # rot_factor=30,
@@ -167,7 +167,7 @@ common_val_cfg = dict(
     with_trans=True,
     max_samples=64,
     square_bbox=square_bbox,
-    mosh_path='data/h36m/extras/h36m_single_train_openpose.npz',
+    mosh_path='data/h36m/extras/mosh_annot.npz',
     with_nr=WITH_NR,
     use_poly=True,
 )
@@ -177,24 +177,24 @@ h36m_data_root = 'data/h36m/'
 coco_dataset_type = 'COCOKeypoints'
 coco_data_root = 'data/coco/'
 common_dataset = 'CommonDataset'
-pose_track_root = 'data/posetrack2018/'
+pose_track_root = 'data/posetrack/'
 mpii_root = 'data/mpii/'
 mpi_inf_3dhp_root = 'data/mpi_inf_3dhp/'
-panoptic_root = 'data/Panoptic/'
+panoptic_root = 'data/panoptic/'
 
 datasets = [
     dict(
         train=dict(
-            type=h36m_dataset_type,
+            type=common_dataset,
             ann_file=h36m_data_root + 'extras/rcnn/h36m_train.pkl',
-            img_prefix=h36m_data_root + 'images/',
+            img_prefix=h36m_data_root,
             sample_weight=0.6,
             **common_train_cfg
         ),
         val=dict(
-            type=h36m_dataset_type,
+            type=common_dataset,
             ann_file=h36m_data_root + 'extras/rcnn/h36m_val.pkl',
-            img_prefix=h36m_data_root + 'images/',
+            img_prefix=h36m_data_root,
             sample_weight=0.6,
             **common_val_cfg
         ),
@@ -267,7 +267,7 @@ datasets = [
     dict(
         val=dict(
             type=common_dataset,
-            ann_file=panoptic_root + 'processed/annotations/160422_ultimatum1.pkl',
+            ann_file=panoptic_root + 'annotations/160422_ultimatum1.pkl',
             img_prefix=panoptic_root,
             sample_weight=0.6,
             ignore_3d=True,
